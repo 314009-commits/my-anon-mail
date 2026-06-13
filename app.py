@@ -22,7 +22,7 @@ RECEIVER_EMAIL = "314009@sssh.tyc.edu.tw"
 
 # =======================================================
 
-@app.route('/send_email', methods=['POST'])
+@app.route('/send_email', methods=['GET', 'POST'])
 def send_email():
     try:
         subject = request.form.get('subject', '').strip()
