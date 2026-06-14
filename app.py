@@ -36,7 +36,13 @@ def send_email():
         print("🔄 正在嘗試透過 yagmail 安全發送郵件...")
 
         # 使用 yagmail 完美繞過 smtplib 的編碼錯誤
-        yag = yagmail.SMTP(user=SENDER_EMAIL, password=SENDER_PASSWORD)
+        # ⚠️ 請把裡面的帳號和應用程式密碼換成你自己的
+        yag = yagmail.SMTP(
+            user='你的Gmail帳號@gmail.com',
+            password='你的16位數應用程式密碼',
+            host='smtp.gmail.com',
+            port=465
+        )
         yag.send(
             to=RECEIVER_EMAIL,
             subject=f"[匿名信] {subject}",
