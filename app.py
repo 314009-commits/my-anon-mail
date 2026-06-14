@@ -6,6 +6,12 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+# 首頁測試用
+@app.route("/")
+def home():
+    return "匿名信箱後端運作中"
+
+# 真正寄信功能
 @app.route("/send_email", methods=["POST"])
 def send_email():
     try:
@@ -28,7 +34,11 @@ def send_email():
 
         return "success"
 
+
     except Exception as e:
+
+        print("錯誤：", e)
+
         return str(e), 500
 
 
