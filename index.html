@@ -1,84 +1,147 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>匿名信箱</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .mailbox-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 500px;
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #666;
-            font-weight: bold;
-        }
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        textarea {
-            resize: vertical;
-            height: 150px;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>匿名信箱</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f7f6;
+    min-height:100vh;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.mailbox-container{
+    width:100%;
+    max-width:500px;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+    box-sizing:border-box;
+}
+
+h2{
+    text-align:center;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    box-sizing:border-box;
+    margin-top:5px;
+}
+
+textarea{
+    height:180px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    border:none;
+    border-radius:8px;
+    background:#4CAF50;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#43a047;
+}
+
+#status{
+    margin-top:15px;
+    text-align:center;
+}
+
+</style>
 </head>
 <body>
 
 <div class="mailbox-container">
-    <h2>📬 匿名信箱</h2>
-<form action="<form action="https://314009-commits.github.io/my-anon-mail/" method="POST">
-        <div class="form-group">
-            <label for="subject">主題：</label>
-            <input type="text" id="subject" name="subject" placeholder="請輸入信件主題" required>
-        </div>
-        <div class="form-group">
-            <label for="message">信件內容：</label>
-            <textarea id="message" name="message" placeholder="請寫下你想說的話...（此表單完全匿名）" required></textarea>
-        </div>
-        <button type="submit">安全發送匿名信</button>
-    </form>
+
+<h2>📬 匿名信箱</h2>
+
+<form id="mailForm">
+
+<label>主題</label>
+<input
+type="text"
+name="subject"
+required>
+
+<label>內容</label>
+<textarea
+name="message"
+required></textarea>
+
+<button type="submit">
+送出匿名信
+</button>
+
+</form>
+
+<div id="status"></div>
+
 </div>
+
+<script>
+
+const form = document.getElementById("mailForm");
+
+form.addEventListener("submit", async (e)=>{
+
+e.preventDefault();
+
+const status = document.getElementById("status");
+
+status.innerHTML = "發送中...";
+
+const formData = new FormData(form);
+
+try{
+
+const response = await fetch(
+"https://你的-render網址.onrender.com/send_email",
+{
+method:"POST",
+body:formData
+}
+);
+
+if(response.ok){
+
+status.innerHTML = "✅ 匿名信已送出";
+form.reset();
+
+}else{
+
+status.innerHTML = "❌ 發送失敗";
+
+}
+
+}catch(error){
+
+status.innerHTML = "❌ 無法連接伺服器";
+
+}
+
+});
+
+</script>
 
 </body>
 </html>

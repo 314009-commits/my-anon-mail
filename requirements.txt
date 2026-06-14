@@ -1,4 +1,4 @@
 Flask
-Flask-CORS
+Flask-Cors
 yagmail
 gunicorn
