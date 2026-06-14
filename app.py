@@ -18,9 +18,6 @@ def send_email():
         subject = request.form.get("subject", "").strip()
         message = request.form.get("message", "").strip()
 
-        if not subject or not message:
-            return "主題或內容不能為空", 400
-
         yag = yagmail.SMTP(
             user=os.environ["EMAIL_USER"],
             password=os.environ["EMAIL_PASSWORD"]
@@ -34,11 +31,9 @@ def send_email():
 
         return "success"
 
-
     except Exception as e:
-
-        print("錯誤：", e)
-
+        import traceback
+        traceback.print_exc()   # 印完整錯誤到 Render Logs
         return str(e), 500
 
 
