@@ -14,11 +14,6 @@ def home():
 @app.route("/send_email", methods=["POST"])
 def send_email():
     try:
-        yag = yagmail.SMTP(
-            user=os.environ["EMAIL_USER"],
-            password=os.environ["EMAIL_PASSWORD"]
-        )
-
         yag.send(
             to=os.environ["RECEIVER_EMAIL"],
             subject="測試信",
