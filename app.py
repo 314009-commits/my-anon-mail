@@ -38,8 +38,8 @@ def send_email():
         # 使用 yagmail 完美繞過 smtplib 的編碼錯誤
         # ⚠️ 請把裡面的帳號和應用程式密碼換成你自己的
         yag = yagmail.SMTP(
-            user='你的Gmail帳號@gmail.com',
-            password='你的16位數應用程式密碼',
+            user='314009@sssh.tyc.edu.tw',
+            password='khdviolcrfqmryrh',
             host='smtp.gmail.com',
             port=465
         )
