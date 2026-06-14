@@ -11,10 +11,26 @@ CORS(app)
 def home():
     return "匿名信箱後端運作中"
 
-# 真正寄信功能
 @app.route("/send_email", methods=["POST"])
 def send_email():
-    return "API OK"
+    try:
+        yag = yagmail.SMTP(
+            user=os.environ["EMAIL_USER"],
+            password=os.environ["EMAIL_PASSWORD"]
+        )
+
+        yag.send(
+            to=os.environ["RECEIVER_EMAIL"],
+            subject="測試信",
+            contents="Hello"
+        )
+
+        return "SEND OK"
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return str(e), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
